@@ -1,0 +1,75 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left" : ["cpu","custom/memory", "custom/wifi", "bluetooth"],
+    "modules-center": ["sway/workspaces"],
+    "modules-right": [ "backlight","pulseaudio", "custom/battery", "custom/time" , "custom/date", "custom/restart", "custom/power"],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "sort-by-name": true,
+        "format": " {name} ",
+        "on-click": "swaymsg workspace {name}"
+    },
+
+    "custom/wifi": {
+        "exec" : "wifiName 2>/dev/null",
+        "interval" : 5,
+        "on-click": "kitty nmtui"
+    },
+    "bluetooth": {
+        "format": " {status}",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "kitty connectbluetooth"
+    },
+    "cpu": {
+        "interval": 5,
+        "format": "  {usage}% ",
+        "max-length": 10
+    },
+    "custom/memory": {
+        "exec" : "ram_usage",
+        "interval": 5
+    },
+    "custom/date": {
+        "exec" : "dateformat",
+        "interval" : 60 
+    },
+    "custom/time": {
+        "exec" : "timeformat",
+        "interval" : 30
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "custom/battery": {
+        "exec" : "battery",
+        "interval" : 5
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", " "]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/restart": {
+        "tooltip": false,
+        "on-click": "systemctl reboot",
+        "format": "🔄"
+    },
+    "custom/power": {
+        "tooltip": false,
+        "on-click": "systemctl poweroff",
+        "format": "襤"
+    }
+}
+
