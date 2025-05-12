@@ -1,0 +1,30 @@
+#!/bin/sh
+
+npm cache clean --force
+
+rm -rf .cache
+rm -rf node_modules/.cache
+
+rm -rf ~/.npm/_npx
+rm -rf ~/.npm/_logs
+rm -rf ~/.npm/_cacache
+
+sudo pacman -Sc   # Remove uninstalled package cache
+sudo pacman -Scc  # Remove all cached packages (you’ll need to confirm)
+sudo rm -rf /var/cache/*  # Manual cache clear (use with caution)
+sudo pacman -Qtdq | sudo pacman -Rns -
+
+sudo journalctl --vacuum-time=2weeks  # Retain only the last 2 weeks
+
+sudo docker stop $(sudo docker ps -q)
+sudo docker rm $(sudo docker ps -aq)
+
+sudo docker rmi $(sudo docker images -q)
+
+sudo docker system prune -af --volumes
+
+rm -rf ~/.local/share/Trash/*
+sudo rm -rf /tmp/*
+
+rm -rf ~/.cargo/registry
+rm -rf ~/.cargo/git

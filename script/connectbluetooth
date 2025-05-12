@@ -1,0 +1,5 @@
+headphones="FC:58:FA:76:4A:28"
+
+bluetoothctl power on
+bluetoothctl connect $headphones
+
